@@ -1,0 +1,7 @@
+# Liste des cibles à scanner (IP/hostnames)
+127.0.0.1    # Localhost
+192.168.1.1  # Exemple: routeur local
+github.com    # Test externe
+
+# Format:
+# <ip_ou_hostname>  # commentaire
