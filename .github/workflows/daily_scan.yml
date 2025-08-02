@@ -1,0 +1,23 @@
+name: Daily Security Scan
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get install -y nmap lynis
+      - name: Run scans
+        run: |
+          mkdir -p reports
+          nmap -sV -T4 -O -F 127.0.0.1 > reports/nmap.txt
+          sudo lynis audit system --quick > reports/lynis.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: security-reports
+          path: reports/
+          # Workflow will be added later
